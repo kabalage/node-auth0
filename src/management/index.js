@@ -10,6 +10,7 @@ var ArgumentError = require('../exceptions').ArgumentError;
 // Managers.
 var ClientsManager = require('./ClientsManager');
 var ClientGrantsManager = require('./ClientGrantsManager');
+var ResourceServersManager = require('./ResourceServersManager');
 var UsersManager = require('./UsersManager');
 var ConnectionsManager = require('./ConnectionsManager');
 var BlacklistedTokensManager = require('./BlacklistedTokensManager');
@@ -94,6 +95,8 @@ var ManagementClient = function (options) {
    * @type {ClientGrantsManager}
    */
   this.clientGrants = new ClientGrantsManager(managerOptions);
+
+  this.resourceServers = new ResourceServersManager(managerOptions);
 
   /**
    * Simple abstraction for performing CRUD operations on the
@@ -542,6 +545,14 @@ utils.wrapPropertyMethod(ManagementClient, 'updateClientGrant', 'clientGrants.pa
  * @return  {Promise|undefined}
  */
 utils.wrapPropertyMethod(ManagementClient, 'deleteClientGrant', 'clientGrants.delete');
+
+
+utils.wrapPropertyMethod(ManagementClient, 'getResourceServers', 'resourceServers.getAll');
+utils.wrapPropertyMethod(ManagementClient, 'createResourceServer', 'resourceServer.create');
+utils.wrapPropertyMethod(ManagementClient, 'getResourceServer', 'resourceServer.get');
+utils.wrapPropertyMethod(ManagementClient, 'updateResourceServer', 'resourceServer.patch');
+utils.wrapPropertyMethod(ManagementClient, 'deleteResourceServer', 'resourceServer.delete');
+
 
 
 /**
